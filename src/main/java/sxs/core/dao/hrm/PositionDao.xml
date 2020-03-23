@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxs.core.dao.hrm.PositionDao">
+    <!--查询职位信息-->
+    <select id="getPositionInfo" resultMap="getPositionInfoMap">
+        select * from hrm.position 
+        <where>
+            <if test="1 == 1">
+                is_del = 0
+            </if>
+            <if test="positionName != null and positionName != ''">
+                and position_name like "%"#{positionName}"%"
+            </if>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="pageColumn != null and pageSize != null">
+                limit #{pageColumn},#{pageSize}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="getPositionInfoMap" type="PositionVo">
+        <result property="positionName" column="position_name"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!--查询部门总数-->
+    <select id="getPositionCount" resultType="int">
+        select count(1) from hrm.position
+        <where>
+            <if test="1 == 1">
+                is_del = 0
+            </if>
+            <if test="positionName != null and positionName != ''">
+                and position_name like "%"#{positionName}"%"
+            </if>
+        </where>
+    </select>
+
+    <!--修改职位信息-->
+    <update id="updatePositionInfo" parameterType="PositionVo">
+        update hrm.position set position_name = #{positionName},remark = #{remark}
+        where id = #{id}
+    </update>
+
+    <!--删除职位信息-->
+    <update id="deletePositionInfo" parameterType="PositionVo">
+        update hrm.position set is_del = 1
+        where id = #{id}
+    </update>
+
+    <!--添加职位信息-->
+    <insert id="addPositionInfo" parameterType="PositionVo">
+        insert into hrm.position(position_name,remark,create_time)
+        values(#{positionName},#{remark},#{createTime})
+    </insert>
+
+    <!--查询所有的职位-->
+    <select id="getAllPosition" resultMap="getPositionInfoMap">
+        select * from hrm.position
+        where is_del = 0
+    </select>
+</mapper>

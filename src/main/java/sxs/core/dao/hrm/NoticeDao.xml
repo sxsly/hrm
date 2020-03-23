@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxs.core.dao.hrm.NoticeDao">
+    <!--查询公告信息-->
+    <select id="getNoticeInfo" resultMap="getNoticeInfoMap">
+        select * from hrm.notice
+        <where>
+            <if test="1 == 1">
+                is_del = 0
+            </if>
+            <if test="noticeName != null and noticeName != ''">
+                and notice_name like "%"#{noticeName}"%"
+            </if>
+            <if test="noticeContent != null and noticeContent != ''">
+                and notice_content like "%"#{noticeContent}"%"
+            </if>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="pageColumn != null and pageSize != null">
+                limit #{pageColumn},#{pageSize}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="getNoticeInfoMap" type="NoticeVo">
+        <result property="noticeName" column="notice_name"/>
+        <result property="noticeContent" column="notice_content"/>
+        <result property="noticeCreator" column="notice_creator"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!--查询记录总数-->
+    <select id="getNoticeCount" resultType="int">
+        select count(1) from hrm.notice
+        <where>
+            <if test="1 == 1">
+                is_del = 0
+            </if>
+            <if test="noticeName != null and noticeName != ''">
+                and notice_name like "%"#{noticeName}"%"
+            </if>
+            <if test="noticeContent != null and noticeContent != ''">
+                and notice_content like "%"#{noticeContent}"%"
+            </if>
+        </where>
+    </select>
+
+    <!--修改公告信息-->
+    <update id="updateNoticeInfo" parameterType="NoticeVo">
+        update hrm.notice set notice_name = #{noticeName},notice_content = #{noticeContent}
+        where id = #{id}
+    </update>
+
+    <!--删除公告信息-->
+    <update id="deleteNoticeInfo" parameterType="NoticeVo">
+        update hrm.notice set is_del = 1
+        where id = #{id}
+    </update>
+
+    <!--添加公告信息-->
+    <insert id="addNoticeInfo" parameterType="NoticeVo">
+        insert into hrm.notice(notice_name,notice_content,notice_creator,create_time)
+        values(#{noticeName},#{noticeContent},#{noticeCreator},#{createTime})
+    </insert>
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxs.core.dao.hrm.EmployeeDao">
+    <!--查询员工信息-->
+    <select id="getEmployeeInfo" resultMap="getEmployeeInfoMap">
+        select * from hrm.employee
+        <where>
+            <if test="1 == 1">
+                is_del = 0
+            </if>
+            <if test="positionName != null and positionName != ''">
+                and position_name = #{positionName}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="employeeName != null and employeeName != ''">
+                and employee_name like "%"#{employeeName}"%"
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="cardId != null and cardId != ''">
+                and card_id = #{cardId}
+            </if>
+            <if test="deptName != null and deptName != ''">
+                and dept_name = #{deptName}
+            </if>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="getEmployeeInfoMap" type="EmployeeVo">
+        <result property="positionName" column="position_name"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="cardId" column="card_id"/>
+        <result property="employeeName" column="employee_name"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!--查询员工总数-->
+    <select id="getEmployeeCount" resultType="int">
+        select count(1) from hrm.employee
+        <where>
+            <if test="1 == 1">
+                is_del = 0
+            </if>
+            <if test="positionName != null and positionName != ''">
+                and position_name = #{positionName}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="employeeName != null and employeeName != ''">
+                and employee_name like "%"#{employeeName}"%"
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="cardId != null and cardId != ''">
+                and card_id = #{cardId}
+            </if>
+            <if test="deptName != null and deptName != ''">
+                and dept_name = #{deptName}
+            </if>
+        </where>
+    </select>
+
+    <!--修改员工信息-->
+    <update id="updateEmployeeInfo" parameterType="EmployeeVo">
+        update hrm.employee set employee_name = #{employeeName},card_id = #{cardId},
+        position_name = #{positionName},record = #{record},email = #{email},phone = #{phone},
+        dept_name = #{deptName}
+        where id = #{id}
+    </update>
+
+    <!--删除员工信息-->
+    <update id="deleteEmployeeInfo" parameterType="EmployeeVo">
+        update hrm.employee set is_del = 1 where id = #{id}
+    </update>
+
+    <!--添加员工信息-->
+    <insert id="addEmployeeInfo" parameterType="EmployeeVo">
+        insert into hrm.employee(employee_name,card_id,position_name,record,email,phone,dept_name,address,create_time)
+        values(#{employeeName},#{cardId},#{positionName},#{record},#{email},#{phone},#{deptName},#{address},#{createTime})
+    </insert>
+</mapper>

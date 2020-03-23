@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxs.core.dao.hrm.DeptDao">
+    <!--查询部门信息-->
+    <select id="getDeptInfo" resultMap="getDeptInfoMap">
+        select * from dept
+        <where>
+            <if test="1 == 1">
+                is_del = 0
+            </if>
+            <if test="deptName != null and deptName != ''">
+                and dept_name like "%"#{deptName}"%"
+            </if>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="pageColumn != null and pageSize != null">
+                limit #{pageColumn},#{pageSize}
+            </if>
+        </where>
+    </select>
+    
+    <resultMap id="getDeptInfoMap" type="DeptVo">
+        <result property="deptName" column="dept_name"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!--删除部门信息-->
+    <update id="deleteDeptInfo" parameterType="DeptVo">
+        update dept set is_del = 1
+        where id = #{id}
+    </update>
+
+    <!--修改部门信息-->
+    <update id="updateDeptInfo" parameterType="DeptVo">
+        update dept set dept_name = #{deptName},remark = #{remark}
+        where id = #{id}
+    </update>
+
+    <!--添加部门信息-->
+    <insert id="addDeptInfo" parameterType="DeptVo">
+        insert into dept(dept_name,remark,create_time) values(#{deptName},#{remark},#{createTime})
+    </insert>
+
+    <!--查询部门总数-->
+    <select id="deptCount" resultType="int">
+        select count(1) from dept
+        <where>
+            <if test="1 == 1">
+                is_del = 0
+            </if>
+            <if test="deptName != null and deptName != ''">
+                and dept_name like "%"#{deptName}"%"
+            </if>
+        </where>
+    </select>
+
+    <!--查询所有部门-->
+    <select id="getAllDept" resultMap="getDeptInfoMap">
+        select * from hrm.dept
+        where is_del = 0
+    </select>
+</mapper>

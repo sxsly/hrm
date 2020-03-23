@@ -1,0 +1,27 @@
+server:
+  port: 8888
+
+# Spring数据源配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql:///hrm?serverTimezone=UTC
+    username: root
+    password: 123456
+
+# 禁止thymeleaf进行缓存
+  thymeleaf:
+        cache: false
+
+# mybatis的映射文件定位
+mybatis:
+  mapper-locations: classpath:sxs.core.dao.hrm/*.xml
+  type-aliases-package: sxs.core.vo.hrm
+
+# 配置日志文件
+logging:
+  pattern:
+    console: logs-%level %msg%n
+  level:
+    sxs.core.dao.hrm: debug

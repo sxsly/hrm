@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sxs.core.dao.hrm.DocumentDao">
+    <!--查询文件信息-->
+    <select id="getDocumentInfo" resultMap="getFileInfoMap">
+        select * from hrm.document
+        <where>
+            <if test="1 == 1">
+                is_del = 0
+            </if>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="title != null and title != ''">
+                and title like "%"#{title}"%"
+            </if>
+            <if test="pageColumn != null and pageSize != null">
+                limit #{pageColumn},#{pageSize}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="getFileInfoMap" type="DocumentVo">
+        <result property="fileName" column="file_name"/>
+        <result property="filePath" column="file_path"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!--查询记录总数-->
+    <select id="getDocumentCount" resultType="int">
+        select count(1) from hrm.document
+        <where>
+            <if test="1 == 1">
+                is_del = 0
+            </if>
+            <if test="title != null and title != ''">
+                and title like "%"#{title}"%"
+            </if>
+        </where>
+    </select>
+
+    <!--添加文档信息-->
+    <insert id="addDocumentInfo" parameterType="DocumentVo">
+        insert into hrm.document(title,file_name,file_path,remark,create_time,creator)
+        values(#{title},#{fileName},#{filePath},#{remark},#{createTime},#{creator})
+    </insert>
+
+    <!--修改信息-->
+    <update id="updateDocumentInfo" parameterType="DocumentVo">
+        update hrm.document set title = #{title},remark = #{remark}
+        where id = #{id}
+    </update>
+</mapper>
