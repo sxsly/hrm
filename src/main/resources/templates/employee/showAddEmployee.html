@@ -23,11 +23,11 @@
         function sub() {
             var employeeName = $("#employeeName");
             var cardId = $("#cardId");
-            var positionName = $("#positionName");
+            var positionId = $("#positionId");
             var record = $("#record");
             var email = $("#email");
             var phone = $("#phone");
-            var deptName = $("#deptName");
+            var deptId = $("#deptId");
             var address = $("#address");
             var msg = "";
 
@@ -40,9 +40,9 @@
             } else if ($.trim(cardId.val()) == "") {
                 msg = "身份证号不能为空！";
                 cardId.focus();
-            } else if ($.trim(positionName.val()) == "") {
+            } else if ($.trim(positionId.val()) == "") {
                 msg = "职位不能为空！";
-                positionName.focus();
+                positionId.focus();
             } else if ($.trim(record.val()) == "") {
                 msg = "学历不能为空！";
                 record.focus();
@@ -52,9 +52,9 @@
             } else if ($.trim(phone.val()) == "") {
                 msg = "手机号不能为空！";
                 phone.focus();
-            } else if ($.trim(deptName.val()) == "") {
+            } else if ($.trim(deptId.val()) == "") {
                 msg = "部门不能为空！";
-                deptName.focus();
+                deptId.focus();
             }
 
             if (msg != ""){
@@ -113,10 +113,10 @@
                                         type:"post",
                                         async:false,
                                         success:function(result) {
-                                            var html = "职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：<select id='positionName' name='positionName' style='width:143px;'>"+
+                                            var html = "职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：<select id='positionId' name='positionId' style='width:143px;'>"+
                                                 "<option value=''>--请选择--</option>";
                                             for (var i = 0;i < result.data.length;i++){
-                                                html += "<option value='"+ result.data[i].positionName +"'>"+ result.data[i].positionName +"</option>";
+                                                html += "<option value='"+ result.data[i].id +"'>"+ result.data[i].positionName +"</option>";
                                             }
                                             html += "</select>&nbsp;";
                                             $("#positionOp").html(html);
@@ -140,10 +140,10 @@
                                         type:"get",
                                         async:false,
                                         success:function(result) {
-                                            var html = "部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门：<select id='deptName' name='deptName' style='width:143px;'>" +
+                                            var html = "部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门：<select id='deptId' name='deptId' style='width:143px;'>" +
                                                 "<option value=''>--请选择--</option>";
                                             for (var i = 0;i < result.data.length;i++){
-                                                html += "<option value='"+ result.data[i].deptName +"'>"+ result.data[i].deptName +"</option>";
+                                                html += "<option value='"+ result.data[i].id +"'>"+ result.data[i].deptName +"</option>";
                                             }
                                             html += "</select>&nbsp;";
                                             $("#deptSpan").html(html);

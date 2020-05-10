@@ -1,9 +1,13 @@
 package sxs.core.action.hrm;
 
 import org.springframework.context.ApplicationContext;
+import sxs.core.service.hrm.DeptService;
 import sxs.core.service.hrm.EmployeeService;
+import sxs.core.service.hrm.PositionService;
 import sxs.core.util.hrm.ApplicationUtil;
+import sxs.core.vo.hrm.DeptVo;
 import sxs.core.vo.hrm.EmployeeVo;
+import sxs.core.vo.hrm.PositionVo;
 import sxs.core.vo.hrm.ResultInfoVo;
 
 import java.text.SimpleDateFormat;
@@ -101,6 +105,20 @@ public class EmployeeAction {
         EmployeeService employeeService = context.getBean(EmployeeService.class);
         SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         employeeVo.setCreateTime(sm.format(new Date()));
+
+        PositionVo positionVo = new PositionVo();
+        positionVo.setId(employeeVo.getPositionId());
+        PositionService positionService = context.getBean(PositionService.class);
+        List<PositionVo> positionVoList = positionService.getPositionInfo(positionVo);
+        employeeVo.setPositionName(positionVoList.get(0).getPositionName());
+
+        DeptVo deptVo = new DeptVo();
+        deptVo.setId(employeeVo.getDeptId());
+        DeptService deptService = context.getBean(DeptService.class);
+        List<DeptVo> deptVoList = deptService.getDeptInfo(deptVo);
+        employeeVo.setDeptName(deptVoList.get(0).getDeptName());
+
+
         try {
             Integer row = employeeService.addEmployeeInfo(employeeVo);
             if (row > 0){

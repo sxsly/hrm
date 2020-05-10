@@ -19,6 +19,8 @@ public class EmployeeVo {
     private String address;
     private String createTime;
     private String sexStr;
+    private Integer positionId;
+    private Integer deptId;
 
     public String getSexStr() {
         if (this.sex == 1){
@@ -158,5 +160,21 @@ public class EmployeeVo {
 
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public Integer getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Integer positionId) {
+        this.positionId = positionId;
+    }
+
+    public Integer getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Integer deptId) {
+        this.deptId = deptId;
     }
 }

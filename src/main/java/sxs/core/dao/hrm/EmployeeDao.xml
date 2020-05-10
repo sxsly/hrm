@@ -39,6 +39,8 @@
         <result property="cardId" column="card_id"/>
         <result property="employeeName" column="employee_name"/>
         <result property="createTime" column="create_time"/>
+        <result property="positionId" column="position_id"/>
+        <result property="deptId" column="dept_id"/>
     </resultMap>
 
     <!--查询员工总数-->
@@ -84,7 +86,7 @@
 
     <!--添加员工信息-->
     <insert id="addEmployeeInfo" parameterType="EmployeeVo">
-        insert into hrm.employee(employee_name,card_id,position_name,record,email,phone,dept_name,address,create_time)
-        values(#{employeeName},#{cardId},#{positionName},#{record},#{email},#{phone},#{deptName},#{address},#{createTime})
+        insert into hrm.employee(employee_name,card_id,position_name,record,email,phone,dept_name,address,create_time,position_id,dept_id)
+        values(#{employeeName},#{cardId},#{positionName},#{record},#{email},#{phone},#{deptName},#{address},#{createTime},#{positionId},#{deptId})
     </insert>
 </mapper>
