@@ -1,6 +1,5 @@
 package sxs.core.filter;
 
-import com.sun.deploy.net.HttpResponse;
 import org.springframework.context.ApplicationContext;
 import sxs.core.service.hrm.UserService;
 import sxs.core.util.hrm.ApplicationUtil;
