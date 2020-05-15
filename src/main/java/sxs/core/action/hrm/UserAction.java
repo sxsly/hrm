@@ -5,6 +5,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import sxs.core.service.hrm.UserService;
 import sxs.core.util.hrm.ApplicationUtil;
+import sxs.core.util.hrm.MD5Util;
 import sxs.core.vo.hrm.ResultInfoVo;
 import sxs.core.vo.hrm.UserVo;
 
@@ -37,6 +38,7 @@ public class UserAction {
         ResultInfoVo resultInfo = null;
 
         UserService userService = context.getBean(UserService.class);
+        vo.setPassword(MD5Util.encode(vo.getPassword()));
         try {
             List<UserVo> userVoList = userService.getUserInfo(vo);
             if (!userVoList.isEmpty()){
@@ -112,6 +114,7 @@ public class UserAction {
     public ResultInfoVo updateUserInfo(UserVo vo){
         ResultInfoVo resultInfo = null;
         UserService userService = context.getBean(UserService.class);
+        vo.setPassword(MD5Util.encode(vo.getPassword()));
         try {
             Integer row = userService.updateUserInfo(vo);
             if (row > 0){
@@ -137,6 +140,7 @@ public class UserAction {
         UserService userService = context.getBean(UserService.class);
         SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         vo.setCreateTime(sm.format(new Date()));
+        vo.setPassword(MD5Util.encode(vo.getPassword()));
         try {
             Integer row = userService.addUserInfo(vo);
             if (row > 0){
