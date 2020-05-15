@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+
+    <property name="LOG_FILE" value="/home/sxs/log/hrm.log"/>
+
+    <!-- %m输出的信息,%p日志级别,%t线程名,%d日期,%c类的全名,,,, -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+    </appender>
+
+    <springProfile name="dev">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="sxs.core" level="debug"/>
+    </springProfile>
+
+    <springProfile name="product">
+        <include resource="logback-file.xml"/>
+        <root level="info">
+            <appender-ref ref="FILE"/>
+        </root>
+        <logger name="sxs.core" level="debug"/>
+    </springProfile>
+
+    <!--<logger name="sxs.core" level="debug">-->
+        <!--<appender-ref ref="CONSOLE"/>-->
+    <!--</logger>-->
+</configuration>

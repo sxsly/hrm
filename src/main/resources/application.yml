@@ -20,8 +20,8 @@ mybatis:
   type-aliases-package: sxs.core.vo.hrm
 
 # 配置日志文件
-logging:
-  pattern:
-    console: logs-%level %msg%n
-  level:
-    sxs.core.dao.hrm: debug
+#logging:
+#  pattern:
+#    console: logs-%level %msg%n
+#  level:
+#    sxs.core.dao.hrm: debug
