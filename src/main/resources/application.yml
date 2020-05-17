@@ -13,8 +13,6 @@ spring:
 # 禁止thymeleaf进行缓存
   thymeleaf:
         cache: false
-  profiles:
-    active: dev
 
 # mybatis的映射文件定位
 mybatis:
