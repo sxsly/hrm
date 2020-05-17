@@ -31,6 +31,9 @@
                 and id = #{id}
             </if>
         </where>
+        <if test="pageColumn != null and pageSize != null">
+            limit #{pageColumn},#{pageSize}
+        </if>
     </select>
 
     <resultMap id="getEmployeeInfoMap" type="EmployeeVo">

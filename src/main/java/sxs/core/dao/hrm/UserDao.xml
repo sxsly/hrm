@@ -24,10 +24,10 @@
             <if test="realName != null and realName != ''">
                 and real_name like "%"#{realName}"%"
             </if>
-            <if test="pageColumn != null and pageSize != null">
-                limit #{pageColumn},#{pageSize}
-            </if>
         </where>
+        <if test="pageColumn != null and pageSize != null">
+            limit #{pageColumn},#{pageSize}
+        </if>
     </select>
 
     <resultMap id="getUserInfoMap" type="UserVo">

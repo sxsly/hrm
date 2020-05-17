@@ -15,10 +15,10 @@
             <if test="title != null and title != ''">
                 and title like "%"#{title}"%"
             </if>
-            <if test="pageColumn != null and pageSize != null">
-                limit #{pageColumn},#{pageSize}
-            </if>
         </where>
+        <if test="pageColumn != null and pageSize != null">
+            limit #{pageColumn},#{pageSize}
+        </if>
     </select>
 
     <resultMap id="getFileInfoMap" type="DocumentVo">

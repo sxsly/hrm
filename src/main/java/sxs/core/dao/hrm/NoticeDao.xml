@@ -18,10 +18,10 @@
             <if test="id != null and id != ''">
                 and id = #{id}
             </if>
-            <if test="pageColumn != null and pageSize != null">
-                limit #{pageColumn},#{pageSize}
-            </if>
         </where>
+        <if test="pageColumn != null and pageSize != null">
+            limit #{pageColumn},#{pageSize}
+        </if>
     </select>
 
     <resultMap id="getNoticeInfoMap" type="NoticeVo">
